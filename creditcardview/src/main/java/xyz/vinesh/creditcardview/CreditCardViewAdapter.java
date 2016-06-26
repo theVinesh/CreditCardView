@@ -42,4 +42,10 @@ public class CreditCardViewAdapter extends FragmentPagerAdapter implements CardU
         creditCardViewFront.updateCard(card);
         creditCardViewBack.updateCard(card);
     }
+
+    @Override
+    public void updateCardTypes(CardTypes cardTypes) {
+        creditCardViewFront.setCardTypes(cardTypes);
+        creditCardViewBack.setCardTypes(cardTypes);
+    }
 }

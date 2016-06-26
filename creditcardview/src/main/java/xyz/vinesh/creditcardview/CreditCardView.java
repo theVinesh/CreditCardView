@@ -108,8 +108,8 @@ public class CreditCardView extends CardView implements ViewPager.OnPageChangeLi
             String sNumber = attributes.getString(R.styleable.CreditCardView_cardNumber) != null ? attributes.getString(R.styleable.CreditCardView_cardNumber) : "XXXXXXXXXXXXXXXX";
             String sExpiry = attributes.getString(R.styleable.CreditCardView_expiry) != null ? attributes.getString(R.styleable.CreditCardView_expiry) : "MM/YY";
             String sCvv = attributes.getString(R.styleable.CreditCardView_cvv) != null ? attributes.getString(R.styleable.CreditCardView_cvv) : "XXX";
-
-            card = new Card(sName, sNumber, sCvv, sExpiry);
+            int color = attributes.getColor(R.styleable.CreditCardView_cardColor, context.getResources().getColor(android.R.color.background_light));
+            card = new Card(sName, sNumber, sCvv, sExpiry, color);
 
 
         } finally {
@@ -118,7 +118,7 @@ public class CreditCardView extends CardView implements ViewPager.OnPageChangeLi
     }
 
     private void initView() {
-        card = new Card("XXXXXX XXXX", "XXXXXXXXXXXXXXXX", "XXX", "MM/YY");
+        card = new Card("XXXXXX XXXX", "XXXXXXXXXXXXXXXX", "XXX", "MM/YY", context.getResources().getColor(android.R.color.background_light));
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.credit_card_view, this, true);
 
@@ -135,10 +135,11 @@ public class CreditCardView extends CardView implements ViewPager.OnPageChangeLi
         cardsPager.setPageTransformer(false, new FlipAnimation());
         cardsPager.addOnPageChangeListener(this);
 
+
     }
 
     public void setCardTypes(CardTypes cardTypes) {
-        //this.cardTypes = cardTypes;
+        listener.updateCardTypes(cardTypes);
     }
 
     @Override

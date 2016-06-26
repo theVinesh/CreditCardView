@@ -4,9 +4,9 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +25,7 @@ public class CreditCardViewFront extends Fragment {
     private Typeface typeface;
 
     private Card card;
+    private CardView cardView;
 
     private CardTypes cardTypes;
 
@@ -39,6 +40,7 @@ public class CreditCardViewFront extends Fragment {
         args.putString(Card.NUMBER_KEY, card.getCardNumber());
         args.putString(Card.EXPIRY_KEY, card.getExpiry());
         args.putString(Card.CVV_KEY, card.getCvv());
+        args.putInt(Card.COLOR_KEY, card.getCardColor());
         fragment.setArguments(args);
         return fragment;
     }
@@ -48,7 +50,7 @@ public class CreditCardViewFront extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle args = getArguments();
-        card = new Card(args.getString(Card.NAME_KEY), args.getString(Card.NUMBER_KEY), args.getString(Card.CVV_KEY), args.getString(Card.EXPIRY_KEY));
+        card = new Card(args.getString(Card.NAME_KEY), args.getString(Card.NUMBER_KEY), args.getString(Card.CVV_KEY), args.getString(Card.EXPIRY_KEY), args.getInt(Card.COLOR_KEY));
     }
 
     @Nullable
@@ -59,6 +61,7 @@ public class CreditCardViewFront extends Fragment {
         name = (TextView) view.findViewById(R.id.tvName);
         expiry = (TextView) view.findViewById(R.id.tvExpiry);
         logo = (ImageView) view.findViewById(R.id.ivLogo);
+        cardView = (CardView) view.findViewById(R.id.card_view);
 
         update();
 
@@ -67,7 +70,7 @@ public class CreditCardViewFront extends Fragment {
         name.setTypeface(typeface);
         expiry.setTypeface(typeface);
 
-        cardTypes = new CardTypes();
+        cardTypes = new CardTypes(getContext());
 
         number.addTextChangedListener(new TextWatcher() {
             @Override
@@ -91,6 +94,7 @@ public class CreditCardViewFront extends Fragment {
     }
 
     private void update() {
+        cardView.setCardBackgroundColor(card.getCardColor());
         number.setText(introduceGaps(card.getCardNumber()));
         name.setText(card.getCardHolderName());
         expiry.setText(card.getExpiry());
@@ -107,7 +111,7 @@ public class CreditCardViewFront extends Fragment {
         for (CardTypes.PatternResourcePairs cardType : cardTypes) {
             if (cardType.matches(s.toString())) {
                 matched = true;
-                logo.setImageResource(cardType.getLogoResource());
+                logo.setImageDrawable(cardType.getLogoResource());
                 break;
             }
             if (!matched) logo.setImageDrawable(null);
@@ -131,7 +135,6 @@ public class CreditCardViewFront extends Fragment {
     }
 
     public void updateCard(Card card) {
-        Log.d("FRONT", "Updating");
         this.card = card;
         update();
     }

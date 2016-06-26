@@ -6,4 +6,6 @@ package xyz.vinesh.creditcardview;
 
 public interface CardUpdateListener {
     void updateCard(Card card);
+
+    void updateCardTypes(CardTypes cardTypes);
 }
