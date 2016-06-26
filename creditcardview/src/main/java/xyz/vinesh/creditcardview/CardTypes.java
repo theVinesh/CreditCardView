@@ -22,7 +22,7 @@ public class CardTypes {
         learn("^5[1-5][0-9]{14}$", R.drawable.ic_billing_mastercard_logo);
 
         //visa card pattern
-        learn("^4[0-9]{12}(?:[0-9]{3})?$", R.drawable.ic_billing_visa_logo);
+        learn("^4[0-9]{12}(?:[0-9]{3})?$", R.drawable.visa_logo);
 
         //amex card pattern
         learn("^3[47][0-9]{13}$", R.drawable.ic_billing_amex_logo1);
