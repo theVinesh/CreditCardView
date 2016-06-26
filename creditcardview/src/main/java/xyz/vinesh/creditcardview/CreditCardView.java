@@ -3,6 +3,7 @@ package xyz.vinesh.creditcardview;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.v7.widget.CardView;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -22,6 +23,7 @@ public class CreditCardView extends CardView {
     TextView number, name, expiry;
     ImageView logo;
     Context context;
+    Typeface typeface;
 
     CardTypes cardTypes;
 
@@ -86,6 +88,13 @@ public class CreditCardView extends CardView {
         expiry = (TextView) view.findViewById(R.id.tvExpiry);
         logo = (ImageView) view.findViewById(R.id.ivLogo);
 
+        typeface = Typeface.createFromAsset(getContext().getAssets(), "fonts/ocraextended.ttf");
+        number.setTypeface(typeface);
+        name.setTypeface(typeface);
+        expiry.setTypeface(typeface);
+        //cvv.setTypeface(typeface);
+
+
         number.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -116,7 +125,7 @@ public class CreditCardView extends CardView {
                 logo.setImageResource(cardType.getLogoResource());
                 break;
             }
-            if (!matched) logo.setImageResource(R.mipmap.ic_launcher);
+            if (!matched) logo.setImageDrawable(null);
         }
     }
 
