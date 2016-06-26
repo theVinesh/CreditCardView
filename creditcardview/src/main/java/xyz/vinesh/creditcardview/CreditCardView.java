@@ -2,31 +2,26 @@ package xyz.vinesh.creditcardview;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Color;
-import android.graphics.Typeface;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import java.util.ArrayList;
 
 /**
  * Created by vineshraju on 24/6/16.
  */
-public class CreditCardView extends CardView {
+public class CreditCardView extends CardView implements ViewPager.OnPageChangeListener {
 
-    TextView number, name, expiry;
-    ImageView logo;
-    Context context;
-    Typeface typeface;
+    private Context context;
+    private Card card;
+    private ViewPager cardsPager;
+    private CreditCardViewAdapter adapter;
+    private AppCompatActivity activity;
+    private int currentPage = 0;
 
-    CardTypes cardTypes;
-
+    private CardUpdateListener listener = null;
 
     public CreditCardView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -48,6 +43,59 @@ public class CreditCardView extends CardView {
         initView();
     }
 
+    public String getCardHolderName() {
+        return this.card.getCardHolderName();
+    }
+
+    public void setCardHolderName(String cardHolderName) {
+        this.card.setCardHolderName(cardHolderName);
+        if (listener != null) {
+            if (currentPage != 0) cardsPager.setCurrentItem(0);
+            listener.updateCard(card);
+        }
+    }
+
+    public void setListener(CardUpdateListener listener) {
+        this.listener = listener;
+
+    }
+
+    public String getCardNumber() {
+        return this.card.getCardNumber();
+    }
+
+    public void setCardNumber(String cardNumber) {
+        this.card.setCardNumber(cardNumber);
+        if (listener != null) {
+            if (currentPage != 0) cardsPager.setCurrentItem(0);
+            listener.updateCard(card);
+        }
+    }
+
+    public String getCvv() {
+        return this.card.getCvv();
+    }
+
+    public void setCvv(String cvv) {
+        this.card.setCvv(cvv);
+        if (listener != null) {
+            if (currentPage != 1) cardsPager.setCurrentItem(1);
+            listener.updateCard(card);
+        }
+    }
+
+    public String getExpiry() {
+        return this.card.getExpiry();
+    }
+
+    public void setExpiry(String expiry) {
+        this.card.setExpiry(expiry);
+        if (listener != null) {
+            if (currentPage != 0) cardsPager.setCurrentItem(0);
+            listener.updateCard(card);
+        }
+    }
+
     private void initFromXML(AttributeSet attrs) {
         TypedArray attributes = context.getTheme().obtainStyledAttributes(
                 attrs,
@@ -61,118 +109,50 @@ public class CreditCardView extends CardView {
             String sExpiry = attributes.getString(R.styleable.CreditCardView_expiry) != null ? attributes.getString(R.styleable.CreditCardView_expiry) : "MM/YY";
             String sCvv = attributes.getString(R.styleable.CreditCardView_cvv) != null ? attributes.getString(R.styleable.CreditCardView_cvv) : "XXX";
 
-            int color = attributes.getColor(R.styleable.CreditCardView_cardColor, Color.WHITE);
+            card = new Card(sName, sNumber, sCvv, sExpiry);
 
-            number.setText(introduceGaps(sNumber));
-            name.setText(sName);
-            expiry.setText(sExpiry);
-
-            refreshLogo(sNumber);
 
         } finally {
             attributes.recycle();
         }
     }
 
-    public void setCardTypes(CardTypes cardTypes) {
-        this.cardTypes = cardTypes;
-    }
-
     private void initView() {
-        cardTypes = new CardTypes();
+        card = new Card("XXXXXX XXXX", "XXXXXXXXXXXXXXXX", "XXX", "MM/YY");
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.credit_card_view, this, true);
 
-        number = (TextView) view.findViewById(R.id.tvCardNumber);
-        name = (TextView) view.findViewById(R.id.tvName);
-        expiry = (TextView) view.findViewById(R.id.tvExpiry);
-        logo = (ImageView) view.findViewById(R.id.ivLogo);
-
-        typeface = Typeface.createFromAsset(getContext().getAssets(), "fonts/ocraextended.ttf");
-        number.setTypeface(typeface);
-        name.setTypeface(typeface);
-        expiry.setTypeface(typeface);
-        //cvv.setTypeface(typeface);
-
-
-        number.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                refreshLogo(s);
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-
-    }
-
-    private void refreshLogo(CharSequence s) {
-        boolean matched = false;
-        ArrayList<CardTypes.PatternResourcePairs> cardTypes = CreditCardView.this.cardTypes.getCardTypes();
-        for (CardTypes.PatternResourcePairs cardType : cardTypes) {
-            if (cardType.matches(s.toString())) {
-                matched = true;
-                logo.setImageResource(cardType.getLogoResource());
-                break;
-            }
-            if (!matched) logo.setImageDrawable(null);
+        try {
+            activity = (AppCompatActivity) context;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
+        cardsPager = (ViewPager) view.findViewById(R.id.vpCardsPager);
+        adapter = new CreditCardViewAdapter(this, activity.getSupportFragmentManager(), card);
+
+        cardsPager.setAdapter(adapter);
+        cardsPager.setPageTransformer(false, new FlipAnimation());
+        cardsPager.addOnPageChangeListener(this);
+
     }
 
-    public String getExpiry() {
-        return expiry.getText().toString();
+    public void setCardTypes(CardTypes cardTypes) {
+        //this.cardTypes = cardTypes;
     }
 
-    public void setExpiry(String expiry) {
-        this.expiry.setText(expiry);
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
     }
 
-    public ImageView getLogo() {
-        return logo;
+    @Override
+    public void onPageSelected(int position) {
+        currentPage = position;
     }
 
-    public void setLogo(ImageView logo) {
-        this.logo = logo;
-    }
+    @Override
+    public void onPageScrollStateChanged(int state) {
 
-    public String getName() {
-        return name.getText().toString();
-    }
-
-    public void setName(String name) {
-        this.name.setText(name);
-    }
-
-    public String getNumber() {
-        return number.getText().toString();
-    }
-
-    public void setNumber(String number) {
-        this.number.setText(introduceGaps(number));
-    }
-
-    private String introduceGaps(String nonGappedNumber) {
-        int count = 0;
-        String gappedNumber = "";
-        for (char c : nonGappedNumber.toCharArray()) {
-            if (count < 4) {
-                gappedNumber += c;
-                count++;
-            } else {
-                gappedNumber = gappedNumber + " " + c;
-                count = 1;
-            }
-        }
-        return gappedNumber;
     }
 }

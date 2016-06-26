@@ -10,7 +10,7 @@ import xyz.vinesh.creditcardview.CreditCardView;
 
 public class MainActivity extends AppCompatActivity {
     CreditCardView cardView;
-    EditText number, name, expiry;
+    EditText number, name, expiry, cvv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                cardView.setNumber(s.toString());
+                cardView.setCardNumber(s.toString());
             }
 
             @Override
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                cardView.setName(s.toString());
+                cardView.setCardHolderName(s.toString());
             }
 
             @Override
@@ -66,6 +66,23 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        cvv.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                cardView.setCvv(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     private void init() {
@@ -73,5 +90,6 @@ public class MainActivity extends AppCompatActivity {
         number = (EditText) findViewById(R.id.etCardNumber);
         name = (EditText) findViewById(R.id.etName);
         expiry = (EditText) findViewById(R.id.etExpiry);
+        cvv = (EditText) findViewById(R.id.etCvv);
     }
 }
