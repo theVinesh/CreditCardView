@@ -1,25 +1,39 @@
 # CreditCardView
 
-[ ![Download](https://api.bintray.com/packages/vineshraju/maven/CreditCardView/images/download.svg) ](https://bintray.com/vineshraju/maven/CreditCardView/_latestVersion)
 
 Intro
 ------
 
 CreditCardView is a simple custom view for displaying Credit / Debit Cards with automatic card type identification and ability to learn user defined card types. 
 
+Adding to your project
+------------------------
+
+[ ![Download](https://api.bintray.com/packages/vineshraju/maven/CreditCardView/images/download.svg) ](https://bintray.com/vineshraju/maven/CreditCardView/_latestVersion)
+
+
+- Add the following configuration in your build.gradle file.
+- Replace version with the latest version number shown above
+
+```gradle
+dependencies {
+    compile ‘xyz.vinesh.creditcardview:creditcardview:1.0’
+}
+```
+
 
 Creating a CreditCardView
 --------------------------
 ##### in XML
 ```xml
-  <xyz.vinesh.creditcardview.CreditCardView     
-  android:id="@+id/cvCreditCardView"     
-  android:layout_width="wrap_content"    
-  android:layout_height="wrap_content"     
-  app:cardNumber="1234567891234567”     
-  app:cardHolderName="VINESH RAJU"     
-  app:expiry="06/16"
-  app:cvv=“000” />
+<xyz.vinesh.creditcardview.CreditCardView 
+	android:id="@+id/cvCreditCardView" 
+	android:layout_width="wrap_content" 
+	android:layout_height="wrap_content" 
+	app:cardNumber="1234567891234567” 
+	app:cardHolderName="VINESH RAJU" 
+	app:expiry="06/16"
+	app:cvv=“000” />
 
 ```
 
@@ -35,9 +49,9 @@ Creating a CreditCardView
    String cardNumber = "1234567891234567";
 
    creditCardView.setCvv(cvv);
-   creditCardView.setName(name);
+   creditCardView.setCardHolderName(name);
    creditCardView.setExpiry(expiry);
-   creditCardView.setNumber(cardNumber);
+   creditCardView.setCardNumber(cardNumber);
 
 ```
 
@@ -47,10 +61,10 @@ Getting card info
 To get the information displayed on the card
 
 ```java
-   String name = creditCardView.getName();
+   String name = creditCardView.getCardHolderName();
    String cvv = creditCardView.getCvv();
    String expiry = creditCardView.getExpiry();
-   String cardNumber = creditCardView.getNumber();
+   String cardNumber = creditCardView.getCardNumber();
 ```
 
 
@@ -62,7 +76,7 @@ CreditCardView automatically detects and displays appropriate logos for Visa,Mas
 ### Syntax
 
 ```java
-	CardType.learn(String regEx,int logoResource);
+	CardType.learn(String regEx,Drawable logoResource);
 ```
 where regEx is the regular expression defining the pattern for the new card
 
@@ -70,20 +84,11 @@ where regEx is the regular expression defining the pattern for the new card
 
 ```java
 	CardType cardType=new CardType();
-	cardType.learn("^3[47][0-9]{13}$", R.drawable.am_ex_logo);
+	cardType.learn("^3[47][0-9]{13}$", getContext().getResource().getDrawable(R.drawable.am_ex_logo));
 	creditCardView.setCardTypes(cardType);
 ```
 
-Adding to your project
-------------------------
 
-- Add the following configuration in your build.gradle file.
-
-```gradle
-dependencies {
-    compile ‘xyz.vinesh.creditcardview:creditcardview:1.0’
-}
-```
 
 Designed and Developed By
 ------------
