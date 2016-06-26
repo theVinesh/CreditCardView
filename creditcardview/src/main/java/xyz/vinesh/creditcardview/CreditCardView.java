@@ -1,6 +1,8 @@
 package xyz.vinesh.creditcardview;
 
 import android.content.Context;
+import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.support.v7.widget.CardView;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -28,19 +30,46 @@ public class CreditCardView extends CardView {
         super(context, attrs);
         this.context = context;
         initView();
+        initFromXML(attrs);
     }
 
     public CreditCardView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         this.context = context;
         initView();
+        initFromXML(attrs);
     }
 
     public CreditCardView(Context context) {
         super(context);
         this.context = context;
         initView();
+    }
 
+    private void initFromXML(AttributeSet attrs) {
+        TypedArray attributes = context.getTheme().obtainStyledAttributes(
+                attrs,
+                R.styleable.CreditCardView,
+                0, 0);
+
+        try {
+
+            String sName = attributes.getString(R.styleable.CreditCardView_cardHolderName) != null ? attributes.getString(R.styleable.CreditCardView_cardHolderName) : "XXXXXX XXXX";
+            String sNumber = attributes.getString(R.styleable.CreditCardView_cardNumber) != null ? attributes.getString(R.styleable.CreditCardView_cardNumber) : "XXXXXXXXXXXXXXXX";
+            String sExpiry = attributes.getString(R.styleable.CreditCardView_expiry) != null ? attributes.getString(R.styleable.CreditCardView_expiry) : "MM/YY";
+            String sCvv = attributes.getString(R.styleable.CreditCardView_cvv) != null ? attributes.getString(R.styleable.CreditCardView_cvv) : "XXX";
+
+            int color = attributes.getColor(R.styleable.CreditCardView_cardColor, Color.WHITE);
+
+            number.setText(introduceGaps(sNumber));
+            name.setText(sName);
+            expiry.setText(sExpiry);
+
+            refreshLogo(sNumber);
+
+        } finally {
+            attributes.recycle();
+        }
     }
 
     public void setCardTypes(CardTypes cardTypes) {
@@ -65,16 +94,7 @@ public class CreditCardView extends CardView {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                boolean matched = false;
-                ArrayList<CardTypes.PatternResourcePairs> cardTypes = CreditCardView.this.cardTypes.getCardTypes();
-                for (CardTypes.PatternResourcePairs cardType : cardTypes) {
-                    if (cardType.matches(s.toString())) {
-                        matched = true;
-                        logo.setImageResource(cardType.getLogoResource());
-                        break;
-                    }
-                    if (!matched) logo.setImageResource(R.mipmap.ic_launcher);
-                }
+                refreshLogo(s);
 
             }
 
@@ -85,6 +105,19 @@ public class CreditCardView extends CardView {
         });
 
 
+    }
+
+    private void refreshLogo(CharSequence s) {
+        boolean matched = false;
+        ArrayList<CardTypes.PatternResourcePairs> cardTypes = CreditCardView.this.cardTypes.getCardTypes();
+        for (CardTypes.PatternResourcePairs cardType : cardTypes) {
+            if (cardType.matches(s.toString())) {
+                matched = true;
+                logo.setImageResource(cardType.getLogoResource());
+                break;
+            }
+            if (!matched) logo.setImageResource(R.mipmap.ic_launcher);
+        }
     }
 
     public String getExpiry() {
