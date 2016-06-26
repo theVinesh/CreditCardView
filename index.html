@@ -1,0 +1,141 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Creditcardview by VineshRaju</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <meta name="viewport" content="width=device-width">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Creditcardview</h1>
+        <p>A Credit or Debit card view for Android</p>
+
+        <p class="view"><a href="https://github.com/VineshRaju/CreditCardView">View the Project on GitHub <small>VineshRaju/CreditCardView</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/VineshRaju/CreditCardView/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/VineshRaju/CreditCardView/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/VineshRaju/CreditCardView">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a id="creditcardview" class="anchor" href="#creditcardview" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CreditCardView</h1>
+
+<h2>
+<a id="intro" class="anchor" href="#intro" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Intro</h2>
+
+<p>CreditCardView is a simple custom view for displaying Credit / Debit Cards with automatic card type identification and ability to learn user defined card types. </p>
+
+<h2>
+<a id="adding-to-your-project" class="anchor" href="#adding-to-your-project" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Adding to your project</h2>
+
+<p><a href="https://bintray.com/vineshraju/maven/CreditCardView/_latestVersion"> <img src="https://api.bintray.com/packages/vineshraju/maven/CreditCardView/images/download.svg" alt="Download"> </a></p>
+
+<ul>
+<li>Add the following configuration in your build.gradle file.</li>
+<li>Replace version with the latest version number shown above</li>
+</ul>
+
+<div class="highlight highlight-source-groovy-gradle"><pre><span class="pl-en">dependencies</span> {
+    compile <span class="pl-s"><span class="pl-pds">'</span>xyz.vinesh.creditcardview:creditcardview:1.1.0<span class="pl-pds">'</span></span>
+}</pre></div>
+
+<h2>
+<a id="creating-a-creditcardview" class="anchor" href="#creating-a-creditcardview" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Creating a CreditCardView</h2>
+
+<h5>
+<a id="in-xml" class="anchor" href="#in-xml" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>in XML</h5>
+
+<div class="highlight highlight-text-xml"><pre>&lt;<span class="pl-ent">xyz</span>.vinesh.creditcardview.CreditCardView 
+    <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>@+id/cvCreditCardView<span class="pl-pds">"</span></span> 
+    <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">layout_width</span>=<span class="pl-s"><span class="pl-pds">"</span>wrap_content<span class="pl-pds">"</span></span> 
+    <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">layout_height</span>=<span class="pl-s"><span class="pl-pds">"</span>wrap_content<span class="pl-pds">"</span></span> 
+    <span class="pl-e">app</span><span class="pl-e">:</span><span class="pl-e">cardNumber</span>=<span class="pl-s"><span class="pl-pds">"</span>1234567891234567” </span>
+<span class="pl-s">    app:cardHolderName=<span class="pl-pds">"</span></span>VINESH RAJU<span class="pl-s"><span class="pl-pds">"</span> </span>
+<span class="pl-s">    app:expiry=<span class="pl-pds">"</span></span>06/16<span class="pl-s"><span class="pl-pds">"</span></span>
+<span class="pl-s">    app:cvv=“000” /&gt;</span>
+<span class="pl-s"></span></pre></div>
+
+<h5>
+<a id="in-code" class="anchor" href="#in-code" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>in Code</h5>
+
+<div class="highlight highlight-source-java"><pre>
+   <span class="pl-smi">CreditCardView</span> creditCardView <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">CreditCardView</span>(context);
+
+   <span class="pl-smi">String</span> name <span class="pl-k">=</span> “<span class="pl-c1">VINESH</span> <span class="pl-c1">RAJU</span>”;
+   <span class="pl-smi">String</span> cvv <span class="pl-k">=</span> “<span class="pl-c1">000</span>”;
+   <span class="pl-smi">String</span> expiry <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>06/16”;</span>
+<span class="pl-s">   String cardNumber = <span class="pl-pds">"</span></span><span class="pl-c1">1234567891234567</span><span class="pl-s"><span class="pl-pds">"</span>;</span>
+<span class="pl-s"></span>
+<span class="pl-s">   creditCardView.setCvv(cvv);</span>
+<span class="pl-s">   creditCardView.setCardHolderName(name);</span>
+<span class="pl-s">   creditCardView.setExpiry(expiry);</span>
+<span class="pl-s">   creditCardView.setCardNumber(cardNumber);</span>
+<span class="pl-s"></span></pre></div>
+
+<h2>
+<a id="getting-card-info" class="anchor" href="#getting-card-info" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Getting card info</h2>
+
+<p>To get the information displayed on the card</p>
+
+<div class="highlight highlight-source-java"><pre>   <span class="pl-smi">String</span> name <span class="pl-k">=</span> creditCardView<span class="pl-k">.</span>getCardHolderName();
+   <span class="pl-smi">String</span> cvv <span class="pl-k">=</span> creditCardView<span class="pl-k">.</span>getCvv();
+   <span class="pl-smi">String</span> expiry <span class="pl-k">=</span> creditCardView<span class="pl-k">.</span>getExpiry();
+   <span class="pl-smi">String</span> cardNumber <span class="pl-k">=</span> creditCardView<span class="pl-k">.</span>getCardNumber();</pre></div>
+
+<h2>
+<a id="learning-new-card-types" class="anchor" href="#learning-new-card-types" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Learning new Card Types</h2>
+
+<p>CreditCardView automatically detects and displays appropriate logos for Visa,Master Card and American Express. In addition to these new types can be taught to CreditCardView by using the learn method</p>
+
+<h3>
+<a id="syntax" class="anchor" href="#syntax" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Syntax</h3>
+
+<div class="highlight highlight-source-java"><pre>    <span class="pl-smi">CardType</span><span class="pl-k">.</span>learn(<span class="pl-smi">String</span> regEx,<span class="pl-smi">Drawable</span> logoResource);</pre></div>
+
+<p>where regEx is the regular expression defining the pattern for the new card</p>
+
+<h4>
+<a id="example" class="anchor" href="#example" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example</h4>
+
+<div class="highlight highlight-source-java"><pre>    <span class="pl-smi">CardType</span> cardType<span class="pl-k">=</span><span class="pl-k">new</span> <span class="pl-smi">CardType</span>();
+    cardType<span class="pl-k">.</span>learn(<span class="pl-s"><span class="pl-pds">"</span>^3[47][0-9]{13}$<span class="pl-pds">"</span></span>, getContext()<span class="pl-k">.</span>getResource()<span class="pl-k">.</span>getDrawable(<span class="pl-smi">R</span><span class="pl-k">.</span>drawable<span class="pl-k">.</span>am_ex_logo));
+    creditCardView<span class="pl-k">.</span>setCardTypes(cardType);</pre></div>
+
+<h2>
+<a id="designed-and-developed-by" class="anchor" href="#designed-and-developed-by" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Designed and Developed By</h2>
+
+<ul>
+<li>Vinesh Raju - <a href="mailto:vineshraju@rocketmail.com">vineshraju@rocketmail.com</a>
+</li>
+</ul>
+
+<h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
+
+<pre><code>Copyright 2016 Vinesh Raju
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+</code></pre>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/VineshRaju">VineshRaju</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
