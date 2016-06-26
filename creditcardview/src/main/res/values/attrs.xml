@@ -1,0 +1,9 @@
+<resources>
+    <declare-styleable name="CreditCardView">
+        <attr name="cardNumber" format="string" />
+        <attr name="cardHolderName" format="string" />
+        <attr name="expiry" format="string" />
+        <attr name="cvv" format="string" />
+        <attr name="cardColor" format="color" />
+    </declare-styleable>
+</resources>
