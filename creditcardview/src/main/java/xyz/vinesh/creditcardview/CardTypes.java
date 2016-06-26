@@ -1,5 +1,7 @@
 package xyz.vinesh.creditcardview;
 
+import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -11,11 +13,11 @@ import java.util.regex.PatternSyntaxException;
  * Created by vineshraju on 26/6/16.
  */
 public class CardTypes {
-
+    Context context;
     private ArrayList<PatternResourcePairs> cardTypes;
 
-    public CardTypes() {
-
+    public CardTypes(Context context) {
+        this.context = context;
         cardTypes = new ArrayList();
 
         //master card pattern
@@ -34,14 +36,14 @@ public class CardTypes {
     }
 
     public void learn(String pattern, int logoResource) {
-        cardTypes.add(new PatternResourcePairs(pattern, logoResource));
+        cardTypes.add(new PatternResourcePairs(pattern, context.getResources().getDrawable(logoResource)));
     }
 
     class PatternResourcePairs {
         private Pattern pattern;
-        private int logoResource;
+        private Drawable logoResource;
 
-        public PatternResourcePairs(String pattern, int logoResource) {
+        public PatternResourcePairs(String pattern, Drawable logoResource) {
             this.logoResource = logoResource;
             try {
                 this.pattern = Pattern.compile(pattern);
@@ -50,7 +52,7 @@ public class CardTypes {
             }
         }
 
-        public int getLogoResource() {
+        public Drawable getLogoResource() {
             return logoResource;
         }
 
