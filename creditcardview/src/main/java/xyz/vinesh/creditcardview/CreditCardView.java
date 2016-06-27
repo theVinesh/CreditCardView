@@ -27,7 +27,8 @@ public class CreditCardView extends CardView implements ViewPager.OnPageChangeLi
         this.context = context;
         initView();
         initFromXML(attrs);
-        setUpCards();
+        if (!this.isInEditMode())
+            setUpCards();
     }
 
     public CreditCardView(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -35,7 +36,8 @@ public class CreditCardView extends CardView implements ViewPager.OnPageChangeLi
         this.context = context;
         initView();
         initFromXML(attrs);
-        setUpCards();
+        if (!this.isInEditMode())
+            setUpCards();
 
     }
 
@@ -43,7 +45,8 @@ public class CreditCardView extends CardView implements ViewPager.OnPageChangeLi
         super(context);
         this.context = context;
         initView();
-        setUpCards();
+        if (!this.isInEditMode())
+            setUpCards();
     }
 
     private void setUpCards() {
@@ -133,17 +136,22 @@ public class CreditCardView extends CardView implements ViewPager.OnPageChangeLi
     }
 
     private void initView() {
-        card = new Card("XXXXXX XXXX", "XXXXXXXXXXXXXXXX", "XXX", "MM/YY", context.getResources().getColor(android.R.color.background_light));
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.credit_card_view, this, true);
+        if (!this.isInEditMode()) {
+            card = new Card("XXXXXX XXXX", "XXXXXXXXXXXXXXXX", "XXX", "MM/YY", context.getResources().getColor(android.R.color.background_light));
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View view = inflater.inflate(R.layout.credit_card_view, this, true);
 
-        try {
-            activity = (AppCompatActivity) context;
-        } catch (Exception e) {
-            e.printStackTrace();
+            try {
+                activity = (AppCompatActivity) context;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            cardsPager = (ViewPager) view.findViewById(R.id.vpCardsPager);
+        } else {
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View view = inflater.inflate(R.layout.credit_card_view_front, this, true);
         }
-
-        cardsPager = (ViewPager) view.findViewById(R.id.vpCardsPager);
     }
 
     public void setCardTypes(CardTypes cardTypes) {
