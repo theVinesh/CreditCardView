@@ -1,9 +1,12 @@
 package xyz.vinesh.sample;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.EditText;
 
 import xyz.vinesh.creditcardview.CreditCardView;
@@ -86,6 +89,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void init() {
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, ListingActivity.class));
+            }
+        });
         cardView = (CreditCardView) findViewById(R.id.cvCreditCardView);
         number = (EditText) findViewById(R.id.etCardNumber);
         name = (EditText) findViewById(R.id.etName);

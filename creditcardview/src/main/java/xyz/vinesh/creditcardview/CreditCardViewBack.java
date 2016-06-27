@@ -16,7 +16,7 @@ import java.util.ArrayList;
 /**
  * Created by vineshraju on 24/6/16.
  */
-public class CreditCardViewBack extends Fragment {
+public class CreditCardViewBack extends Fragment implements CardUpdateListener {
 
     private TextView cvv;
     private ImageView logo;
@@ -25,7 +25,7 @@ public class CreditCardViewBack extends Fragment {
     private Card card;
 
     private Typeface typeface;
-
+    private CreditCardView creditCardView;
 
     public CreditCardViewBack() {
     }
@@ -42,6 +42,9 @@ public class CreditCardViewBack extends Fragment {
         return fragment;
     }
 
+    public void setCreditCardView(CreditCardView creditCardView) {
+        this.creditCardView = creditCardView;
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,10 +56,11 @@ public class CreditCardViewBack extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.credit_card_view_back, null, false);
+        View view = inflater.inflate(R.layout.credit_card_view_back, container, false);
         cvv = (TextView) view.findViewById(R.id.tvCvv);
         logo = (ImageView) view.findViewById(R.id.ivLogo);
         cardView = (CardView) view.findViewById(R.id.card_view);
+        creditCardView.setBackListener(this);
 
         cardTypes = new CardTypes(getContext());
 
@@ -67,11 +71,6 @@ public class CreditCardViewBack extends Fragment {
 
         return view;
     }
-
-    public void setCardTypes(CardTypes cardTypes) {
-        this.cardTypes = cardTypes;
-    }
-
 
     private void refreshLogo(CharSequence s) {
         boolean matched = false;
@@ -88,13 +87,19 @@ public class CreditCardViewBack extends Fragment {
 
 
     private void update() {
-        cardView.setCardBackgroundColor(card.getCardColor());
+        //cardView.setCardBackgroundColor(card.getCardColor());
         cvv.setText(card.getCvv());
         refreshLogo(card.getCardNumber());
     }
 
+    @Override
     public void updateCard(Card card) {
         this.card = card;
         update();
+    }
+
+    @Override
+    public void updateCardTypes(CardTypes cardTypes) {
+        this.cardTypes = cardTypes;
     }
 }

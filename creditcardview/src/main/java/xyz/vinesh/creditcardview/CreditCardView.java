@@ -20,14 +20,14 @@ public class CreditCardView extends CardView implements ViewPager.OnPageChangeLi
     private CreditCardViewAdapter adapter;
     private AppCompatActivity activity;
     private int currentPage = 0;
-
-    private CardUpdateListener listener = null;
+    private CardUpdateListener frontListener = null, backListener = null;
 
     public CreditCardView(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.context = context;
         initView();
         initFromXML(attrs);
+        refreshCard();
     }
 
     public CreditCardView(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -35,12 +35,49 @@ public class CreditCardView extends CardView implements ViewPager.OnPageChangeLi
         this.context = context;
         initView();
         initFromXML(attrs);
+        refreshCard();
+
     }
 
     public CreditCardView(Context context) {
         super(context);
         this.context = context;
         initView();
+        refreshCard();
+
+    }
+
+    private void refreshCard() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    while (true) {
+                        if (frontListener == null || backListener == null)
+                            continue;
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                frontListener.updateCard(card);
+                                backListener.updateCard(card);
+                            }
+                        });
+                        Thread.sleep(1000);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
+    }
+
+    public void setFrontListener(CardUpdateListener frontListener) {
+        this.frontListener = frontListener;
+    }
+
+    public void setBackListener(CardUpdateListener backListener) {
+        this.backListener = backListener;
     }
 
     public String getCardHolderName() {
@@ -49,16 +86,12 @@ public class CreditCardView extends CardView implements ViewPager.OnPageChangeLi
 
     public void setCardHolderName(String cardHolderName) {
         this.card.setCardHolderName(cardHolderName);
-        if (listener != null) {
+        if (frontListener != null) {
             if (currentPage != 0) cardsPager.setCurrentItem(0);
-            listener.updateCard(card);
+            frontListener.updateCard(card);
         }
     }
 
-    public void setListener(CardUpdateListener listener) {
-        this.listener = listener;
-
-    }
 
     public String getCardNumber() {
         return this.card.getCardNumber();
@@ -66,9 +99,9 @@ public class CreditCardView extends CardView implements ViewPager.OnPageChangeLi
 
     public void setCardNumber(String cardNumber) {
         this.card.setCardNumber(cardNumber);
-        if (listener != null) {
+        if (frontListener != null) {
             if (currentPage != 0) cardsPager.setCurrentItem(0);
-            listener.updateCard(card);
+            frontListener.updateCard(card);
         }
     }
 
@@ -78,9 +111,9 @@ public class CreditCardView extends CardView implements ViewPager.OnPageChangeLi
 
     public void setCvv(String cvv) {
         this.card.setCvv(cvv);
-        if (listener != null) {
+        if (backListener != null) {
             if (currentPage != 1) cardsPager.setCurrentItem(1);
-            listener.updateCard(card);
+            backListener.updateCard(card);
         }
     }
 
@@ -90,9 +123,9 @@ public class CreditCardView extends CardView implements ViewPager.OnPageChangeLi
 
     public void setExpiry(String expiry) {
         this.card.setExpiry(expiry);
-        if (listener != null) {
+        if (frontListener != null) {
             if (currentPage != 0) cardsPager.setCurrentItem(0);
-            listener.updateCard(card);
+            frontListener.updateCard(card);
         }
     }
 
@@ -134,12 +167,11 @@ public class CreditCardView extends CardView implements ViewPager.OnPageChangeLi
         cardsPager.setAdapter(adapter);
         cardsPager.setPageTransformer(false, new FlipAnimation());
         cardsPager.addOnPageChangeListener(this);
-
-
     }
 
     public void setCardTypes(CardTypes cardTypes) {
-        listener.updateCardTypes(cardTypes);
+        frontListener.updateCardTypes(cardTypes);
+        backListener.updateCardTypes(cardTypes);
     }
 
     @Override

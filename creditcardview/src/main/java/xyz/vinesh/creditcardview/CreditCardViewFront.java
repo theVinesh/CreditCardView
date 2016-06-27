@@ -18,17 +18,15 @@ import java.util.ArrayList;
 /**
  * Created by vineshraju on 24/6/16.
  */
-public class CreditCardViewFront extends Fragment {
+public class CreditCardViewFront extends Fragment implements CardUpdateListener {
 
     private TextView number, name, expiry;
     private ImageView logo;
     private Typeface typeface;
-
     private Card card;
     private CardView cardView;
-
     private CardTypes cardTypes;
-
+    private CreditCardView creditCardView;
 
     public CreditCardViewFront() {
     }
@@ -45,6 +43,10 @@ public class CreditCardViewFront extends Fragment {
         return fragment;
     }
 
+    public void setCreditCardView(CreditCardView creditCardView) {
+        this.creditCardView = creditCardView;
+    }
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,12 +58,13 @@ public class CreditCardViewFront extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.credit_card_view_front, null, false);
+        View view = inflater.inflate(R.layout.credit_card_view_front, container, false);
         number = (TextView) view.findViewById(R.id.tvCardNumber);
         name = (TextView) view.findViewById(R.id.tvName);
         expiry = (TextView) view.findViewById(R.id.tvExpiry);
         logo = (ImageView) view.findViewById(R.id.ivLogo);
         cardView = (CardView) view.findViewById(R.id.card_view);
+        creditCardView.setFrontListener(this);
 
         update();
 
@@ -94,14 +97,10 @@ public class CreditCardViewFront extends Fragment {
     }
 
     private void update() {
-        cardView.setCardBackgroundColor(card.getCardColor());
+        //cardView.setCardBackgroundColor(card.getCardColor());
         number.setText(introduceGaps(card.getCardNumber()));
         name.setText(card.getCardHolderName());
         expiry.setText(card.getExpiry());
-    }
-
-    public void setCardTypes(CardTypes cardTypes) {
-        this.cardTypes = cardTypes;
     }
 
 
@@ -134,8 +133,14 @@ public class CreditCardViewFront extends Fragment {
         return gappedNumber;
     }
 
+    @Override
     public void updateCard(Card card) {
         this.card = card;
         update();
+    }
+
+    @Override
+    public void updateCardTypes(CardTypes cardTypes) {
+        this.cardTypes = cardTypes;
     }
 }

@@ -8,25 +8,26 @@ import android.support.v4.app.FragmentPagerAdapter;
  * Created by vineshraju on 26/6/16.
  */
 
-public class CreditCardViewAdapter extends FragmentPagerAdapter implements CardUpdateListener {
-    Card card;
-    CreditCardViewFront creditCardViewFront;
-    CreditCardViewBack creditCardViewBack;
+public class CreditCardViewAdapter extends FragmentPagerAdapter {
+    private Card card;
+    private CreditCardView creditCardView;
 
     public CreditCardViewAdapter(CreditCardView creditCardView, FragmentManager fm, Card card) {
         super(fm);
         this.card = card;
-        creditCardView.setListener(this);
+        this.creditCardView = creditCardView;
     }
 
     @Override
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                creditCardViewFront = CreditCardViewFront.newInstance(card);
+                CreditCardViewFront creditCardViewFront = CreditCardViewFront.newInstance(card);
+                creditCardViewFront.setCreditCardView(creditCardView);
                 return creditCardViewFront;
             case 1:
-                creditCardViewBack = CreditCardViewBack.newInstance(card);
+                CreditCardViewBack creditCardViewBack = CreditCardViewBack.newInstance(card);
+                creditCardViewBack.setCreditCardView(creditCardView);
                 return creditCardViewBack;
         }
         return null;
@@ -37,15 +38,4 @@ public class CreditCardViewAdapter extends FragmentPagerAdapter implements CardU
         return 2;
     }
 
-    @Override
-    public void updateCard(Card card) {
-        creditCardViewFront.updateCard(card);
-        creditCardViewBack.updateCard(card);
-    }
-
-    @Override
-    public void updateCardTypes(CardTypes cardTypes) {
-        creditCardViewFront.setCardTypes(cardTypes);
-        creditCardViewBack.setCardTypes(cardTypes);
-    }
 }
