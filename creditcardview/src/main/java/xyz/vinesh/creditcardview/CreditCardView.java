@@ -27,7 +27,7 @@ public class CreditCardView extends CardView implements ViewPager.OnPageChangeLi
         this.context = context;
         initView();
         initFromXML(attrs);
-        refreshCard();
+        setUpCards();
     }
 
     public CreditCardView(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -35,7 +35,7 @@ public class CreditCardView extends CardView implements ViewPager.OnPageChangeLi
         this.context = context;
         initView();
         initFromXML(attrs);
-        refreshCard();
+        setUpCards();
 
     }
 
@@ -43,33 +43,15 @@ public class CreditCardView extends CardView implements ViewPager.OnPageChangeLi
         super(context);
         this.context = context;
         initView();
-        refreshCard();
-
+        setUpCards();
     }
 
-    private void refreshCard() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    while (true) {
-                        if (frontListener == null || backListener == null)
-                            continue;
-                        activity.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                frontListener.updateCard(card);
-                                backListener.updateCard(card);
-                            }
-                        });
-                        Thread.sleep(1000);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
+    private void setUpCards() {
+        adapter = new CreditCardViewAdapter(this, activity.getSupportFragmentManager(), card);
 
+        cardsPager.setAdapter(adapter);
+        cardsPager.setPageTransformer(false, new FlipAnimation());
+        cardsPager.addOnPageChangeListener(this);
     }
 
     public void setFrontListener(CardUpdateListener frontListener) {
@@ -162,11 +144,6 @@ public class CreditCardView extends CardView implements ViewPager.OnPageChangeLi
         }
 
         cardsPager = (ViewPager) view.findViewById(R.id.vpCardsPager);
-        adapter = new CreditCardViewAdapter(this, activity.getSupportFragmentManager(), card);
-
-        cardsPager.setAdapter(adapter);
-        cardsPager.setPageTransformer(false, new FlipAnimation());
-        cardsPager.addOnPageChangeListener(this);
     }
 
     public void setCardTypes(CardTypes cardTypes) {
