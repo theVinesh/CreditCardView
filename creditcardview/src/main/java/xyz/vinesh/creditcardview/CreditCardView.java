@@ -50,7 +50,7 @@ public class CreditCardView extends CardView implements ViewPager.OnPageChangeLi
         adapter = new CreditCardViewAdapter(this, activity.getSupportFragmentManager(), card);
 
         cardsPager.setAdapter(adapter);
-        cardsPager.setPageTransformer(false, new FlipAnimation());
+        cardsPager.setPageTransformer(true, new FlipAnimation());
         cardsPager.addOnPageChangeListener(this);
     }
 
