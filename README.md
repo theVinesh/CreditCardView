@@ -12,12 +12,11 @@ Adding to your project
 [ ![Download](https://api.bintray.com/packages/vineshraju/maven/CreditCardView/images/download.svg) ](https://bintray.com/vineshraju/maven/CreditCardView/_latestVersion)
 
 
-- Add the following configuration in your build.gradle file.
-- Replace version with the latest version number shown above
+#### Add the following configuration in your build.gradle file.
 
 ```gradle
 dependencies {
-	compile 'xyz.vinesh.creditcardview:creditcardview:1.1.0'
+	compile 'xyz.vinesh.creditcardview:creditcardview:1.1.+’
 }
 ```
 
@@ -26,14 +25,16 @@ Creating a CreditCardView
 --------------------------
 ##### in XML
 ```xml
-<xyz.vinesh.creditcardview.CreditCardView 
-	android:id="@+id/cvCreditCardView" 
-	android:layout_width="wrap_content" 
-	android:layout_height="wrap_content" 
-	app:cardNumber="1234567891234567” 
-	app:cardHolderName="VINESH RAJU" 
-	app:expiry="06/16"
-	app:cvv=“000” />
+  <xyz.vinesh.creditcardview.CreditCardView
+                android:id="@+id/cvCreditCardView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardForegroundColor="@color/cardview_dark_background"
+                app:cardBackgroundColor="@color/colorAccent"
+                app:cardHolderName="Vinesh Raju"
+                app:expiry="06/16"
+                app:cvv="654"
+                app:cardNumber="4242424242424242"/>
 
 ```
 
@@ -52,7 +53,8 @@ Creating a CreditCardView
    creditCardView.setCardHolderName(name);
    creditCardView.setExpiry(expiry);
    creditCardView.setCardNumber(cardNumber);
-
+   creditCardView.(cardNumber);
+   cardView.setCardForegroundColor(getResources().getColor(android.R.color.holo_orange_dark));
 ```
 
 Getting card info
@@ -65,6 +67,7 @@ To get the information displayed on the card
    String cvv = creditCardView.getCvv();
    String expiry = creditCardView.getExpiry();
    String cardNumber = creditCardView.getCardNumber();
+   int color = creditCardView.getCardForegroundColor();
 ```
 
 
