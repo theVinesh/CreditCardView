@@ -16,7 +16,7 @@ Adding to your project
 
 ```gradle
 dependencies {
-	compile 'xyz.vinesh.creditcardview:creditcardview:1.1.+’
+	compile 'xyz.vinesh:creditcardview:1.1.+’
 }
 ```
 
