@@ -37,7 +37,7 @@ public class CreditCardViewBack extends Fragment implements CardUpdateListener {
         args.putString(Card.NUMBER_KEY, card.getCardNumber());
         args.putString(Card.EXPIRY_KEY, card.getExpiry());
         args.putString(Card.CVV_KEY, card.getCvv());
-        args.putInt(Card.COLOR_KEY, card.getCardColor());
+        args.putInt(Card.COLOR_KEY, card.getCardForegroundColor());
         fragment.setArguments(args);
         return fragment;
     }
@@ -87,7 +87,7 @@ public class CreditCardViewBack extends Fragment implements CardUpdateListener {
 
 
     private void update() {
-        cardView.setCardBackgroundColor(card.getCardColor());
+        cardView.setCardBackgroundColor(card.getCardForegroundColor());
         cvv.setText(card.getCvv());
         refreshLogo(card.getCardNumber());
     }

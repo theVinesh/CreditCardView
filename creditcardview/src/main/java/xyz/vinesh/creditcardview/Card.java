@@ -7,22 +7,22 @@ package xyz.vinesh.creditcardview;
 public class Card {
     public static final String NAME_KEY = "xyz.vinesh.NAME", NUMBER_KEY = "xyz.vinesh.NUMBER", CVV_KEY = "xyz.vinesh.CVV", EXPIRY_KEY = "xyz.vinesh.EXPIRY", COLOR_KEY = "xyz.vinesh.COLOR";
     private String cardHolderName, cardNumber, expiry, cvv;
-    private int cardColor;
+    private int cardForegroundColor;
 
-    public Card(String cardHolderName, String cardNumber, String cvv, String expiry, int cardColor) {
+    public Card(String cardHolderName, String cardNumber, String cvv, String expiry, int cardForegroundColor) {
         this.cardHolderName = cardHolderName;
         this.cardNumber = cardNumber;
         this.cvv = cvv;
         this.expiry = expiry;
-        this.cardColor = cardColor;
+        this.cardForegroundColor = cardForegroundColor;
     }
 
-    public int getCardColor() {
-        return cardColor;
+    public int getCardForegroundColor() {
+        return cardForegroundColor;
     }
 
-    public void setCardColor(int cardColor) {
-        this.cardColor = cardColor;
+    public void setCardForegroundColor(int cardForegroundColor) {
+        this.cardForegroundColor = cardForegroundColor;
     }
 
     public String getCardHolderName() {

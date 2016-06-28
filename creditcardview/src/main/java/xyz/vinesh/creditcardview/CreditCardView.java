@@ -90,6 +90,20 @@ public class CreditCardView extends CardView implements ViewPager.OnPageChangeLi
         }
     }
 
+    public int getCardForegroundColor() {
+        return this.card.getCardForegroundColor();
+    }
+
+    public void setCardForegroundColor(int color) {
+        this.card.setCardForegroundColor(color);
+        if (backListener != null) {
+            backListener.updateCard(card);
+        }
+        if (frontListener != null) {
+            frontListener.updateCard(card);
+        }
+    }
+
     public String getCvv() {
         return this.card.getCvv();
     }
