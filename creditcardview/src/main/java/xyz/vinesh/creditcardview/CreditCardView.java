@@ -126,7 +126,7 @@ public class CreditCardView extends CardView implements ViewPager.OnPageChangeLi
             String sNumber = attributes.getString(R.styleable.CreditCardView_cardNumber) != null ? attributes.getString(R.styleable.CreditCardView_cardNumber) : "XXXXXXXXXXXXXXXX";
             String sExpiry = attributes.getString(R.styleable.CreditCardView_expiry) != null ? attributes.getString(R.styleable.CreditCardView_expiry) : "MM/YY";
             String sCvv = attributes.getString(R.styleable.CreditCardView_cvv) != null ? attributes.getString(R.styleable.CreditCardView_cvv) : "XXX";
-            int color = attributes.getColor(R.styleable.CreditCardView_cardColor, context.getResources().getColor(android.R.color.background_light));
+            int color = attributes.getColor(R.styleable.CreditCardView_cardForegroundColor, context.getResources().getColor(android.R.color.background_light));
             card = new Card(sName, sNumber, sCvv, sExpiry, color);
 
 

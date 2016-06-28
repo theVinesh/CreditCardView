@@ -4,6 +4,6 @@
         <attr name="cardHolderName" format="string" />
         <attr name="expiry" format="string" />
         <attr name="cvv" format="string" />
-        <attr name="cardColor" format="color" />
+        <attr name="cardForegroundColor" format="color" />
     </declare-styleable>
 </resources>
