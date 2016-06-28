@@ -22,7 +22,10 @@
                 android:layout_height="wrap_content"
                 app:cardForegroundColor="@color/cardview_dark_background"
                 app:cardBackgroundColor="@color/colorAccent"
-                app:cardHolderName="Vin" />
+                app:cardHolderName="Vinesh Raju"
+                app:expiry="06/16"
+                app:cvv="654"
+                app:cardNumber="4242424242424242"/>
 
             <!-- Card info-->
             <TextView
