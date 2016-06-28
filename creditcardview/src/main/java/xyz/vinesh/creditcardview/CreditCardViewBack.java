@@ -87,7 +87,7 @@ public class CreditCardViewBack extends Fragment implements CardUpdateListener {
 
 
     private void update() {
-        //cardView.setCardBackgroundColor(card.getCardColor());
+        cardView.setCardBackgroundColor(card.getCardColor());
         cvv.setText(card.getCvv());
         refreshLogo(card.getCardNumber());
     }

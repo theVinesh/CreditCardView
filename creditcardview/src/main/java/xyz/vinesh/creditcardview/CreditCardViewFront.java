@@ -97,7 +97,7 @@ public class CreditCardViewFront extends Fragment implements CardUpdateListener 
     }
 
     private void update() {
-        //cardView.setCardBackgroundColor(card.getCardColor());
+        cardView.setCardBackgroundColor(card.getCardColor());
         number.setText(introduceGaps(card.getCardNumber()));
         name.setText(card.getCardHolderName());
         expiry.setText(card.getExpiry());
