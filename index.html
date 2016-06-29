@@ -41,14 +41,12 @@
 
 <p><a href="https://bintray.com/vineshraju/maven/CreditCardView/_latestVersion"> <img src="https://api.bintray.com/packages/vineshraju/maven/CreditCardView/images/download.svg" alt="Download"> </a></p>
 
-<ul>
-<li>Add the following configuration in your build.gradle file.</li>
-<li>Replace version with the latest version number shown above</li>
-</ul>
+<h4>
+<a id="add-the-following-configuration-in-your-buildgradle-file" class="anchor" href="#add-the-following-configuration-in-your-buildgradle-file" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Add the following configuration in your build.gradle file.</h4>
 
 <div class="highlight highlight-source-groovy-gradle"><pre><span class="pl-en">dependencies</span> {
-    compile <span class="pl-s"><span class="pl-pds">'</span>xyz.vinesh.creditcardview:creditcardview:1.1.0<span class="pl-pds">'</span></span>
-}</pre></div>
+    compile <span class="pl-s"><span class="pl-pds">'</span>xyz.vinesh:creditcardview:1.1.+’</span>
+<span class="pl-s">}</span></pre></div>
 
 <h2>
 <a id="creating-a-creditcardview" class="anchor" href="#creating-a-creditcardview" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Creating a CreditCardView</h2>
@@ -56,15 +54,17 @@
 <h5>
 <a id="in-xml" class="anchor" href="#in-xml" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>in XML</h5>
 
-<div class="highlight highlight-text-xml"><pre>&lt;<span class="pl-ent">xyz</span>.vinesh.creditcardview.CreditCardView 
-    <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>@+id/cvCreditCardView<span class="pl-pds">"</span></span> 
-    <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">layout_width</span>=<span class="pl-s"><span class="pl-pds">"</span>wrap_content<span class="pl-pds">"</span></span> 
-    <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">layout_height</span>=<span class="pl-s"><span class="pl-pds">"</span>wrap_content<span class="pl-pds">"</span></span> 
-    <span class="pl-e">app</span><span class="pl-e">:</span><span class="pl-e">cardNumber</span>=<span class="pl-s"><span class="pl-pds">"</span>1234567891234567” </span>
-<span class="pl-s">    app:cardHolderName=<span class="pl-pds">"</span></span>VINESH RAJU<span class="pl-s"><span class="pl-pds">"</span> </span>
-<span class="pl-s">    app:expiry=<span class="pl-pds">"</span></span>06/16<span class="pl-s"><span class="pl-pds">"</span></span>
-<span class="pl-s">    app:cvv=“000” /&gt;</span>
-<span class="pl-s"></span></pre></div>
+<div class="highlight highlight-text-xml"><pre>  &lt;<span class="pl-ent">xyz</span>.vinesh.creditcardview.CreditCardView
+                <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>@+id/cvCreditCardView<span class="pl-pds">"</span></span>
+                <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">layout_width</span>=<span class="pl-s"><span class="pl-pds">"</span>wrap_content<span class="pl-pds">"</span></span>
+                <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">layout_height</span>=<span class="pl-s"><span class="pl-pds">"</span>wrap_content<span class="pl-pds">"</span></span>
+                <span class="pl-e">app</span><span class="pl-e">:</span><span class="pl-e">cardForegroundColor</span>=<span class="pl-s"><span class="pl-pds">"</span>@color/cardview_dark_background<span class="pl-pds">"</span></span>
+                <span class="pl-e">app</span><span class="pl-e">:</span><span class="pl-e">cardBackgroundColor</span>=<span class="pl-s"><span class="pl-pds">"</span>@color/colorAccent<span class="pl-pds">"</span></span>
+                <span class="pl-e">app</span><span class="pl-e">:</span><span class="pl-e">cardHolderName</span>=<span class="pl-s"><span class="pl-pds">"</span>Vinesh Raju<span class="pl-pds">"</span></span>
+                <span class="pl-e">app</span><span class="pl-e">:</span><span class="pl-e">expiry</span>=<span class="pl-s"><span class="pl-pds">"</span>06/16<span class="pl-pds">"</span></span>
+                <span class="pl-e">app</span><span class="pl-e">:</span><span class="pl-e">cvv</span>=<span class="pl-s"><span class="pl-pds">"</span>654<span class="pl-pds">"</span></span>
+                <span class="pl-e">app</span><span class="pl-e">:</span><span class="pl-e">cardNumber</span>=<span class="pl-s"><span class="pl-pds">"</span>4242424242424242<span class="pl-pds">"</span></span>/&gt;
+</pre></div>
 
 <h5>
 <a id="in-code" class="anchor" href="#in-code" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>in Code</h5>
@@ -81,7 +81,8 @@
 <span class="pl-s">   creditCardView.setCardHolderName(name);</span>
 <span class="pl-s">   creditCardView.setExpiry(expiry);</span>
 <span class="pl-s">   creditCardView.setCardNumber(cardNumber);</span>
-<span class="pl-s"></span></pre></div>
+<span class="pl-s">   creditCardView.(cardNumber);</span>
+<span class="pl-s">   cardView.setCardForegroundColor(getResources().getColor(android.R.color.holo_orange_dark));</span></pre></div>
 
 <h2>
 <a id="getting-card-info" class="anchor" href="#getting-card-info" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Getting card info</h2>
@@ -91,7 +92,8 @@
 <div class="highlight highlight-source-java"><pre>   <span class="pl-smi">String</span> name <span class="pl-k">=</span> creditCardView<span class="pl-k">.</span>getCardHolderName();
    <span class="pl-smi">String</span> cvv <span class="pl-k">=</span> creditCardView<span class="pl-k">.</span>getCvv();
    <span class="pl-smi">String</span> expiry <span class="pl-k">=</span> creditCardView<span class="pl-k">.</span>getExpiry();
-   <span class="pl-smi">String</span> cardNumber <span class="pl-k">=</span> creditCardView<span class="pl-k">.</span>getCardNumber();</pre></div>
+   <span class="pl-smi">String</span> cardNumber <span class="pl-k">=</span> creditCardView<span class="pl-k">.</span>getCardNumber();
+   <span class="pl-k">int</span> color <span class="pl-k">=</span> creditCardView<span class="pl-k">.</span>getCardForegroundColor();</pre></div>
 
 <h2>
 <a id="learning-new-card-types" class="anchor" href="#learning-new-card-types" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Learning new Card Types</h2>
