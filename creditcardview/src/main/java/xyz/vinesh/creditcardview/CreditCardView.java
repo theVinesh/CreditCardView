@@ -140,7 +140,7 @@ public class CreditCardView extends CardView implements ViewPager.OnPageChangeLi
             String sNumber = attributes.getString(R.styleable.CreditCardView_cardNumber) != null ? attributes.getString(R.styleable.CreditCardView_cardNumber) : "XXXXXXXXXXXXXXXX";
             String sExpiry = attributes.getString(R.styleable.CreditCardView_expiry) != null ? attributes.getString(R.styleable.CreditCardView_expiry) : "MM/YY";
             String sCvv = attributes.getString(R.styleable.CreditCardView_cvv) != null ? attributes.getString(R.styleable.CreditCardView_cvv) : "XXX";
-            int color = attributes.getColor(R.styleable.CreditCardView_cardForegroundColor, context.getResources().getColor(android.R.color.background_light));
+            int color = attributes.getColor(R.styleable.CreditCardView_cardForegroundColor, context.getResources().getColor(R.color.cardDefaultColor));
             card = new Card(sName, sNumber, sCvv, sExpiry, color);
 
 
@@ -151,7 +151,7 @@ public class CreditCardView extends CardView implements ViewPager.OnPageChangeLi
 
     private void initView() {
         if (!this.isInEditMode()) {
-            card = new Card("XXXXXX XXXX", "XXXXXXXXXXXXXXXX", "XXX", "MM/YY", context.getResources().getColor(android.R.color.background_light));
+            card = new Card("XXXXXX XXXX", "XXXXXXXXXXXXXXXX", "XXX", "MM/YY", context.getResources().getColor(R.color.cardDefaultColor));
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View view = inflater.inflate(R.layout.credit_card_view, this, true);
 
