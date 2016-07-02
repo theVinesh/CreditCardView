@@ -60,7 +60,8 @@ public class CreditCardViewBack extends Fragment implements CardUpdateListener {
         cvv = (TextView) view.findViewById(R.id.tvCvv);
         logo = (ImageView) view.findViewById(R.id.ivLogo);
         cardView = (CardView) view.findViewById(R.id.card_view);
-        creditCardView.setBackListener(this);
+        if (creditCardView != null)
+            creditCardView.setBackListener(this);
 
         cardTypes = new CardTypes(getContext());
 
