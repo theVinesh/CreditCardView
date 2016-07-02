@@ -1,2 +1,7 @@
-<manifest package="xyz.vinesh.creditcardview">
+<manifest package="xyz.vinesh.creditcardview"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-permission android:name="android.permission.INTERNET" />
+    <meta-data
+        android:name="io.fabric.ApiKey"
+        android:value="d36812281919572eec4dec334adb670a0691b2ef" />
 </manifest>

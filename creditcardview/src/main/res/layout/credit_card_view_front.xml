@@ -18,6 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="XXXX XXXX XXXX XXXX"
+            android:textColor="#000000"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <LinearLayout
@@ -39,6 +40,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="CARD HOLDER"
+                    android:textColor="#000000"
                     android:textAppearance="?android:attr/textAppearanceSmall" />
 
                 <TextView
@@ -47,6 +49,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:lines="1"
+                    android:textColor="#000000"
                     android:text="XXXXXXX XXXX"
                     android:textAllCaps="true"
                     android:textAppearance="?android:attr/textAppearanceLarge" />
@@ -64,6 +67,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="EXPIRY"
+                    android:textColor="#000000"
                     android:textAppearance="?android:attr/textAppearanceSmall" />
 
                 <TextView
@@ -72,6 +76,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:text="MM/YY"
+                    android:textColor="#000000"
                     android:textAppearance="?android:attr/textAppearanceLarge" />
             </LinearLayout>
         </LinearLayout>

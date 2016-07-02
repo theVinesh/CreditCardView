@@ -1,6 +1,7 @@
 package xyz.vinesh.sample;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -101,5 +102,7 @@ public class MainActivity extends AppCompatActivity {
         name = (EditText) findViewById(R.id.etName);
         expiry = (EditText) findViewById(R.id.etExpiry);
         cvv = (EditText) findViewById(R.id.etCvv);
+
+        //cardView.setCardForegroundColor(Color.parseColor("#FF0000"));
     }
 }

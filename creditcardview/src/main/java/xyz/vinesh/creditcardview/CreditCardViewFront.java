@@ -26,7 +26,7 @@ public class CreditCardViewFront extends Fragment implements CardUpdateListener 
     private Card card;
     private CardView cardView;
     private CardTypes cardTypes;
-    private CreditCardView creditCardView;
+    private static CreditCardView creditCardView;
 
     public CreditCardViewFront() {
     }
@@ -64,7 +64,8 @@ public class CreditCardViewFront extends Fragment implements CardUpdateListener 
         expiry = (TextView) view.findViewById(R.id.tvExpiry);
         logo = (ImageView) view.findViewById(R.id.ivLogo);
         cardView = (CardView) view.findViewById(R.id.card_view);
-        creditCardView.setFrontListener(this);
+        if (creditCardView != null)
+            creditCardView.setFrontListener(this);
 
         update();
 
